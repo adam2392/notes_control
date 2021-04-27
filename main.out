@@ -1,0 +1,26 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Matrix Analysis}{}% 2
+\BOOKMARK [1][-]{section.3}{Important Facts}{}% 3
+\BOOKMARK [2][-]{subsection.3.1}{Finite-Dimensional Vector Spaces}{section.3}% 4
+\BOOKMARK [3][-]{subsubsection.3.1.1}{Subspaces}{subsection.3.1}% 5
+\BOOKMARK [3][-]{subsubsection.3.1.2}{Sherman-Morrison-Woodbury formula}{subsection.3.1}% 6
+\BOOKMARK [3][-]{subsubsection.3.1.3}{Schur Complements}{subsection.3.1}% 7
+\BOOKMARK [1][-]{section.4}{Canonical Forms: Jordan and Weyr}{}% 8
+\BOOKMARK [2][-]{subsection.4.1}{Jordan Form}{section.4}% 9
+\BOOKMARK [3][-]{subsubsection.4.1.1}{Real Jordan Canonical Form}{subsection.4.1}% 10
+\BOOKMARK [1][-]{section.5}{Eigenvalues, Eigenvectors and Similarity}{}% 11
+\BOOKMARK [1][-]{section.6}{Random Matrix Analysis}{}% 12
+\BOOKMARK [1][-]{section.7}{Important Facts}{}% 13
+\BOOKMARK [2][-]{subsection.7.1}{Finite-Dimensional Vector Spaces}{section.7}% 14
+\BOOKMARK [1][-]{section.8}{Random Matrix Theory}{}% 15
+\BOOKMARK [1][-]{section.9}{Resolvent Operator}{}% 16
+\BOOKMARK [1][-]{section.10}{System Identification}{}% 17
+\BOOKMARK [2][-]{subsection.10.1}{Proper Orthogonal Decomposition \(or Principal Component Analysis\)}{section.10}% 18
+\BOOKMARK [3][-]{subsubsection.10.1.1}{Singular Value Decomposition}{subsection.10.1}% 19
+\BOOKMARK [2][-]{subsection.10.2}{Dynamic Mode Decomposition}{section.10}% 20
+\BOOKMARK [3][-]{subsubsection.10.2.1}{Multi-Resolution DMD}{subsection.10.2}% 21
+\BOOKMARK [3][-]{subsubsection.10.2.2}{Randomized DMD}{subsection.10.2}% 22
+\BOOKMARK [2][-]{subsection.10.3}{Koopman Operator Theory - Orthogonal Basis Functions in Hilbert Spaces}{section.10}% 23
+\BOOKMARK [2][-]{subsection.10.4}{The Kalman Filter - Optimal System Identification for Linear Systems with Gaussian Noise}{section.10}% 24
+\BOOKMARK [2][-]{subsection.10.5}{Numerical Algorithms for State-Space Subspace Identification \(N4SID\)}{section.10}% 25
+\BOOKMARK [1][-]{section.11}{Online Convex Optimization for Online System Identification}{}% 26

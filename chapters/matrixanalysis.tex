@@ -1,0 +1,145 @@
+\documentclass[class=article, crop=false]{standalone}
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{lipsum}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{hyperref}
+\usepackage{import}
+\usepackage[subpreambles=true]{standalone}
+\hypersetup{
+    colorlinks=true, %set true if you want colored links
+    linktoc=all,     %set to all if you want both sections and subsections linked
+    linkcolor=blue,  %choose some color if you want links to stand out
+}
+
+% \theoremstyle{definition}
+% \newtheorem{definition}{Definition}[section]
+
+% \theoremstyle{remark}
+% \newtheorem*{remark}{Remark}
+
+% \theoremstyle{lemma}
+% \newtheorem*{lemma}{Lemma}
+
+% \theoremstyle{theorem}
+% \newtheorem*{theorem}{Theorem}
+
+% \theoremstyle{corollary}
+% \newtheorem*{corollary}{Corollary}
+
+% \theoremstyle{property}
+% \newtheorem*{property}{Property}
+% \usepackage[subpreambles=true]{standalone}
+% \usepackage{import}
+\begin{document}
+
+\section{Important Facts}
+	\subsection{Finite-Dimensional Vector Spaces}
+	We begin by defining \textbf{finite-dimensional} vector spaces, which are fundamental for matrix analysis. A vector space, V over a field, F, is a set of objects called vectors that have the following properties:
+
+	i) closed under binary addition
+	ii) associative: $x$
+	iii) commutative
+	iv) has the zero vector
+
+	A field is typically the real numbers, or complex numbers, and has the following properties:
+
+	\begin{enumerate}
+		\item Closure under addition: $\forall x, y \in F$, we have that $x+y \in F$
+		\item Closure under multiplication: $\forall x, y \in F$, we have that $xy \in F$
+	\end{enumerate}
+
+	\subsubsection{Subspaces}
+
+	Sylvester inequality: $A \in M_{m,k}$
+
+	\subsubsection{Sherman-Morrison-Woodbury formula}
+		This formula deals with a nonsingular matrix $A \in M_n$, with a known inverse $A^{-1}$. Then any matrix:
+
+			$$B = A + XRY$$
+
+		with X (n-by-r matrix), R (r-by-r) nonsingular and Y (r-by-n), then if B, $R^{-1} + YA^{-1}X$ are both nonsingular, then we have a closed formula for the inverse of B:
+
+			$$B^{-1} = A^{-1} - A^{-1}X(R^{-1} + YA^{-1}X)^{-1} Y A^{-1}$$
+
+		where if r << n, then the cost of computing $R^{-1}$ is \textbf{significantly cheaper} then trying to compute the inverse of B, which is a n-by-n matrix.
+
+		\paragraph{Note on rank-1 perturbations} If X = x, and Y = $y^T$, and R = [1], then we have that:
+
+			$$B = A + xy^T$$
+
+		is a rank-one perturbation of A. Now, if we want the inverse of B, we get that:
+
+			$$B^{-1} = A^{-1} - (1 + y^T A^{-1} x)^{-1})^{-1}A^{-1} x y^T A^{-1}$$
+
+	\subsubsection{Schur Complements}
+\section{Canonical Forms: Jordan and Weyr}
+	When we are faced with two arbitrary matrices, A, B both n-by-n matrices, we would like to understand when and why they would be similar. We know that similarity equivalence condition says two matrices can be written as:
+
+		$$A = SBS^{-1}$$
+
+	We know that they share the same eigenvalues and also the same rank, but there are matrices that have the same eigenvalues and rank, but are \textbf{similar}. Take for example, a nilpotent matrix and construct a matrix that has also 0 eigenvalues, but is not nilpotent.
+
+	One then asks what are necessary and sufficient conditions for two matrices to be similar? Since we know that similarity is a transitive property, then perhaps we would seek a similar matrix to both A and B, such that if A and B can be broken down into this matrix, then A and B must be similar. If we take eigenvalue decomposition, then we are not always guaranteed existence of an eigenvalue decomposition, so this does not hold for \textbf{all square matrices}. If we take Schur's upper-triangular decomposition, we have a uniqueness problem. First off, upper-triangularization may have different off-diagonals, so upper-triangular matrices are too \textbf{large of a set} for our desired "canonical form".
+
+	\subsection{Jordan Form}
+		The first canonical form is a compromise between diagonal and upper-triangular matrices. They are block-jordan matrices. Note that \textbf{every square matrix} has a unique Jordan form up to permutations of its Jordan blocks. We list some of its important properties.
+
+		\begin{enumerate}
+			\item Linearly independent eigenvectors: number of Jordan blocks.
+			\item Geometric multiplicity of eigenvalues: number of Jordan blocks associated with that eigenvalue.
+			\item Algebraic multiplicity of eigenvalues: total size of all associated Jordan blocks with that eigenvalue.
+		\end{enumerate}
+
+		\subsubsection{Real Jordan Canonical Form}
+			When we know that the matrix A is a real matrix, then we can make use of that fact to come up with another canonical form. Note that real matrices have complex eigenvalues $\lambda = a + bi$ come in complex conjugate paires, so $\lambda_2 = a - bi$ is also an eigenvalue of A.
+
+\section{Eigenvalues, Eigenvectors and Similarity}
+	We begin with the notion of eigenvalues and eigenvectors. 
+
+	Here we summarize some related results on rank-one perturbation of eigenvalues. The first theorem by Brauer states that we can move any eigenvalue arbitrarily without moving other eigenvalues by taking linear combinations of its corresponding eigenvector.
+
+	% Brauer Theorem
+	\begin{theorem}
+	\label{thm:brauer_rank_one_perturb}
+		Suppose $A \in M_n$ is a n by n matrix that has eigenvalues, $\lambda, \lambda_2, ..., \lambda_n$ and let x be a non-zero vector such that $Ax = \lambda x$ (i.e x is an eigenvector of $\lambda$). Then for any $v \in \mathbb{C}^n$, the eigenvalues of $A + xv^*$ are $\lambda + v^*x, \lambda_2,..., \lambda_n$.
+	\end{theorem}
+	\begin{proof}
+		We take the non-normalized eigenvector x and WLOG, say $\eta = \frac{x}{||x||}$, so that $\eta$ has unit norm. Next, we construct a unitary matrix U with $\eta$ as its first column and orthogonal vectors in the next n-1 columns chosen via Gram-Schmidt orthogonalization. Then each vector is normalized giving us an orthonormal column matrix, U, which is unitary.
+
+		Next, we take a Schur decomposition of $A = UTU^*$, namely with U as just constructed, so that $\lambda$ is on the top diagonal entry of T. The other eigenvalues $\lambda_2, ..., \lambda_n$ are along the rest of the diagonal of T.
+
+		Next, we consider $U^* xv^* U$, which equals:
+
+			$$\begin{pmatrix} \eta^* x \\ u^*_2 x \\ \vdots \\ u_n^* x\end{pmatrix} v^* U$$
+
+		whcih then can be shown has its first row with $v^*x$ as the leading entry and then zeros on the next n-1 rows. Thus when we take $U^*(A+xv^*)U$, then we get that the first entry of T has its eigenvalue $\lambda + v^*x$.
+	\end{proof}
+
+	Thus note, we can take any matrix and the corresponding eigenvector of an eigenvalue we are interested in and perturb it to any value, r. One just needs to select the vector $v \in F$ accordingly.
+
+	Next, we recognize that Gershgorin disc theorems are a general framework for obtaining an initial bound on eigenvalue locations purely from the column and row sums of any matrix. We state the main theorem:
+
+	\begin{theorem}
+	\label{thm:gershgorin_disc_thm}
+		Let $A \in M_n$ and let $R_i(A) = \sum_{j \neq i} |a_{ij}|$ for i = 1, ..., n. $R_i(A)$ is the ith row sum of A. 
+
+		We denote the \textbf{deleted absolute row sums} of A and consider the following n Gershgorin discs:
+
+			$$\{z \in \mathcal{C}^n : |z - a_{ii}| \le R_i(A) \}$$
+
+		Then the n eigenvalues of A are located in the union of the n Gershgorin discs:
+
+			$$G(A) = \bigcup_{i=1}^n \{z \in \mathcal{C}^n : |z - a_{ii}| \le R_i(A) \}$$
+
+		Furthermore if the union of k discs are disjoint from the remaining n - k discs, then the k discs have exactly k eigenvalues of A.
+	\end{theorem}
+
+	Note that the second assertion does not require the set $G_k(A)$ to be connected. If we did for some reason know that $G_k(A)$ was disconnected, then the theorem could be applied for each disjoint Gershgorin disc until we get the largest set of disjoint discs, which must each contain their respective number of eigenvalues.
+\end{document}

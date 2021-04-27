@@ -1,0 +1,230 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{lipsum}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{hyperref}
+\usepackage{import}
+\usepackage[subpreambles=true]{standalone}
+\hypersetup{
+    colorlinks=true, %set true if you want colored links
+    linktoc=all,     %set to all if you want both sections and subsections linked
+    linkcolor=blue,  %choose some color if you want links to stand out
+}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\theoremstyle{lemma}
+\newtheorem*{lemma}{Lemma}
+
+\theoremstyle{theorem}
+\newtheorem*{theorem}{Theorem}
+
+\theoremstyle{corollary}
+\newtheorem*{corollary}{Corollary}
+
+\theoremstyle{property}
+\newtheorem*{property}{Property}
+
+\title{Control Theory and Matrix Analysis}
+
+\author{
+  Adam Li, \\
+  Department of Applied Mathematics \& Statistics, \\
+  Department of Biomedical Engineering, \\
+  Johns Hopkins University, \\
+  Baltimore, MD, 21218 \\
+  \texttt{ali39@jhu.edu / adam2392@gmail.com}
+}
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+
+\section{Introduction}
+	Control systems are important in many applied problems. The problem of robust control is determining a set of performance guarantees under parameter uncertainty of a system.
+
+	We begin by defining basic aspects of a control system. Namely, what is a control system made up of.
+
+	\begin{definition}
+		A control system is 
+	\end{definition}
+
+	Stability and performance are two fundamental problems in any design, analysis and implementation of a control system.
+
+	\begin{definition}
+		Stability means that in the absence of external excitation, all signals in the system decay to zero.
+
+		If a system's stability is preserved in the face of uncertainties, then that system has \textbf{robust stability}
+	\end{definition}
+
+	\begin{definition}
+
+	\end{definition}
+
+\section{Matrix Analysis}
+	\subimport{chapters/}{matrixanalysis}
+
+\section{Random Matrix Analysis}
+	\subimport{chapters/}{random_matrix_theory}
+
+\section{System Identification}
+	\subsection{Proper Orthogonal Decomposition (or Principal Component Analysis)}
+		The motivation of POD, or PCA is to obtain an \textbf{approximate} and low-dimensional description of a function. If we wish to approximate a function $z(x, t)$ as a finite sum of the variables:
+
+			$$z(x, t) = \sum_{i=1}^M a_k(t) \phi_k(x)$$
+
+		then we would hope that the approximation is consistent (i.e. approaches z as M goes to infinity, except possibly on sets of measure zero). We by convention call x the "space" variable and t the "time" variable. So $x \in X \subset \mathbb{R}^d$ and $t \in T \subset \mathbb{R}$.
+
+		The functions $a_k, \phi_k$ may take many forms or basis functions. For example, they might be the Fourier basis, Legendre polynomial basis, simple function basis, or step function basis. POD/PCA attempts to consider an \textbf{orthonormal} basis. Namely the functions have the following property:
+
+			$$\int_X \phi_{k_i}(x) \phi_{k_j}(x) dx = \begin{cases} 1 \mbox{ if } k_1 = k_2 \\ 0 \mbox{ else}\end{cases}$$
+
+		where the integrands are replaced with sums in the discrete case. We consider the finite-dimensional case for now, reserving the infinite-dimensional case for the Koopman theory. 
+
+		% finite-dimensional setup
+		We now consider taking n measurements over time of a system with m state variables. This can be arranged into a $n \times m$ data matrix A. We \textbf{consider only real-valued matrices}.
+
+		\subsubsection{Singular Value Decomposition}
+			From this data matrix, A, we assume it is in general some rectangular matrix (i.e. $n \neq m$). We consider the singular value decomposition (SVD) that always exists for any matrix:
+
+				$$A = U \Sigma V^*$$
+
+			where U is a $n \times n$ orthonormal left singular vector matrix and $V$ is a $m \times m$ orthonormal right singular vector matrix, and $\Sigma$ is an $n \times m$ matrix that is almost diagonal. The non-zero diagonal elements, $\sigma_{ii}$ are the singular values of the matrix.
+
+			\paragraph{Connection with original approximation problem}
+
+			\paragraph{Low-rank approximation - based on singular values}
+			We know that the number of non-zero singular values, $\sigma_{ii}$ is the rank of the matrix, A. However, due to sampling noise, one can imagine many $0 < \sigma_{ii} < \epsilon$, for some $\epsilon > 0$. One can simply "truncate" the singular values at some threshold, and get a lower-rank approximation of the A matrix.
+
+			This useful for interpretation, noisy datasets, dimensionality reduction.
+
+			\paragraph{A note on the "method of snapshots"}
+			Consider the case where m >> n. That is there are significantly more state variables, then there are samples. Computationally, one would seek a lower-dimensional representation without having to compute the full SVD. This can be done by first considering the matrix $AA^T$, which is now a n x n matrix. Now by left-multiplying A by $U^T$ (and the orthonormality of the U matrix), we get the following:
+
+				$$U^T A = \Sigma V^T$$
+
+			which is simplified since $\Sigma$ has the last m - n columns being zero (remember m > n), which means that the last m - n columns of V are irrelevant, and simply required to be orthogonal to the first n columns of V. Creating the next set of orthogonal vectors can be done via say Gram Schmidt algorithm. Of course, if the rank of A is less than n, then there would be even more columns that are "irrelevant". 
+
+			This method of snapshots presents a computationally efficient way of computing the V right-singular vector matrix, without directly performing a SVD.
+
+	\subsection{Dynamic Mode Decomposition}
+		The standard DMD algorithm is formulated using the SVD. It concerns a linear dynamical system as follows:
+
+			$$z_{k+1} = A z_k$$
+
+		for some \textbf{unknown} matrix A. Alternatively, one can assume a discrete system:
+
+			$$z((k+1)\delta t) = A z(k \delta t)$$
+
+		where the sampling rate is $\delta t$ fixed. Even when DMD is applied to a nonlinear system, it is \textbf{assumed that there exists a linear operator A} that approximates the nonlinear dynamics according to some norm. We assume $z \in \mathbb{R}^d$.
+
+		\paragraph{The standard algorithm}
+			\begin{enumerate}
+				\item First, one arranges m samples into a data matrix and a one-time shifted version into another data matrix:
+
+					$$X = \begin{pmatrix} z_0 \cdots z_{m-1} \end{pmatrix}$$
+					$$Y = \begin{pmatrix} z_1 \cdots z_{m} \end{pmatrix}$$
+
+				So $X, Y \in M_{d, m}$.
+				\item Next one computes the SVD of X (you can also compute a "low-rank" approximation by truncating singular values). 
+
+					$$X = U\Sigma V^*$$
+
+				If we truncate to obtain r non-zero singular values, then U is a $n \times r$ matrix, $\Sigma$ is an r x r matrix and V is a m x r matrix.
+
+				\item Next, define an intermediate matrix by projecting the time-shifted data matrix onto the singular vector space of the X matrix.
+
+					$$\tilde{A} = U^* Y V \Sigma^{-1}$$
+
+				It's eigenvalue and eigenvectors are:
+
+					$$\tilde{A} w = \lambda w$$
+
+				\item Compute the DMD mode that corresponds to the eigenvalue $\lambda$
+
+					$$\hat{\psi} = Uw$$
+
+				We project the eigenvector of $\tilde{A}$ onto the column space of the left-singular vector matrix of X.
+			\end{enumerate}
+
+		\paragraph{Exact DMD}
+			Exact DMD proposes a change on the computation of the DMD mode. It is instead defined as:
+
+				$$\psi = \frac{1}{\lambda} Y V \Sigma^{-1} w$$
+
+			The original definiton has the DMD modes as the column space of X, while this defintion has the DMD modes as the column space of Y. Rather we will see in this theorem that $\hat{\psi}$ in standard DMD are related to the $\psi$ written in Exact DMD by an orthogonal projection matrix that projects onto the column space of X.
+
+			\begin{theorem} [DMD modes in standard DMD are projections onto X of the exact DMD modes]
+				TBD
+			\end{theorem}
+
+
+
+		\subsubsection{Multi-Resolution DMD}
+
+		\subsubsection{Randomized DMD}
+
+	\subsection{Koopman Operator Theory - Orthogonal Basis Functions in Hilbert Spaces}
+		We consider now a discrete-time system with the following dynamics:
+
+			$$x_{k+1} = f(x_k)$$
+
+		where $x \in M$, a finite-dimensional manifold. The Koopman operator $\mathcal{U}$ acts on scalar functions $g : M \rightarrow \mathbb{R}$, mapping the g function to a new function Ug given by:
+
+			$$Ug(x_k) = g(f(x_k)) = g(x_{k+1})$$
+
+		Note here that U operates linearly on functions g, even when f is a nonlinear function. U is a linear operator that operates on possibly infinite-dimensional space. We consider the eigendecomposition:
+
+			$$U \theta_j(x) = \lambda_j \theta_j(x)$$
+
+		for j = 0, 1, ... possibly infinite amount of eigenfunctions. We are interested in expressing functions of x using the eigenvectors and Koopman modes. 
+
+			$$h(x) = \sum_{j=0}^\infty \theta_j(x) \hat{\psi}_j$$
+
+		where $\hat{psi}_j$ are Koopman modes that have growth/frequency depending on the eigenvalues $\lambda_j$
+
+		\paragraph{Note}
+		Koopman analagoy to the SVD-based DMD algorithm is only appropriate when X describes a sequential time-series, with linearly independent columns and distinct DMD eigenvalues.
+
+
+	\subsection{The Kalman Filter - Optimal System Identification for Linear Systems with Gaussian Noise}
+		We consider the system:
+
+		\begin{align*} 
+			x(t+1) = Ax(t) + Bu(t) + v(t) \\ 
+			y(t) = Cx(t) + Du(t) + w(t)
+		\end{align*}
+
+		where $x \in \mathbb{R}^d$, $y \in \mathbb{R}^m$ and $v \tilde N(0, Q)$ iid normally distributed. 
+
+		\paragraph{Why is noise normally distributed?}
+		This is just a sensible option, and also has deep connections to the L2 norm loss, which when solved is optimal for Gaussian systems.
+
+	\subsection{Numerical Algorithms for State-Space Subspace Identification (N4SID)}
+
+\section{Online Convex Optimization for Online System Identification}
+	In the online convex optimization problem, we are interested in an algorithm that optimizes a cost function based on data seen so far. In addition, one must account for the fact that a decision as data is congested results in a regret, specifically a value of how poor the decision was in retrospect with the new data.
+
+	\begin{definition}
+	\label{def:regret}
+		We define regret of algorithm, $\mathcal{A}$ after T iterations as:
+
+			$$regret_T(A) = \sup_{f_1 ,..., f_T \subset \mathcal{F}} \{ \sum_{t=1}^T f_t(x_t^A) - \min_{x \in \mathcal{K}} \sum_{t=1}^T f_t(x)\}$$
+	\end{definition}
+
+	Note that ideally, an algorithm performs with regret that is sublinear as a function of T implying that on average the algorithm performs as well as the best fixed strategy in hindsight.
+
+\end{document}

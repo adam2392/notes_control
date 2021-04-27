@@ -1,0 +1,8 @@
+\standalonepreambles
+\subpreamble{chapters/matrixanalysis.tex}
+\usepackage [utf8]{inputenc} \usepackage [T1]{fontenc} \usepackage {url} \usepackage {booktabs} \usepackage {amsfonts} \usepackage {nicefrac} \usepackage {microtype} \usepackage {lipsum}\usepackage {amsmath}\usepackage {amsthm}\usepackage {hyperref}\usepackage {import}\usepackage [subpreambles=true]{standalone}\hypersetup {colorlinks=true, linktoc=all, linkcolor=blue, }
+\endsubpreamble
+\subpreamble{chapters/random_matrix_theory.tex}
+\usepackage [utf8]{inputenc} \usepackage [T1]{fontenc} \usepackage {url} \usepackage {booktabs} \usepackage {amsfonts} \usepackage {nicefrac} \usepackage {microtype} \usepackage {lipsum}\usepackage {amsmath}\usepackage {amsthm}\usepackage {hyperref}\usepackage {import}\usepackage [subpreambles=true]{standalone}\hypersetup {colorlinks=true, linktoc=all, linkcolor=blue, }
+\endsubpreamble
+\endstandalonepreambles

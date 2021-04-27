@@ -1,0 +1,97 @@
+\documentclass[class=article, crop=false]{standalone}
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{lipsum}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{hyperref}
+\usepackage{import}
+\usepackage[subpreambles=true]{standalone}
+\hypersetup{
+    colorlinks=true, %set true if you want colored links
+    linktoc=all,     %set to all if you want both sections and subsections linked
+    linkcolor=blue,  %choose some color if you want links to stand out
+}
+
+% \theoremstyle{definition}
+% \newtheorem{definition}{Definition}[section]
+
+% \theoremstyle{remark}
+% \newtheorem*{remark}{Remark}
+
+% \theoremstyle{lemma}
+% \newtheorem*{lemma}{Lemma}
+
+% \theoremstyle{theorem}
+% \newtheorem*{theorem}{Theorem}
+
+% \theoremstyle{corollary}
+% \newtheorem*{corollary}{Corollary}
+
+% \theoremstyle{property}
+% \newtheorem*{property}{Property}
+% \usepackage[subpreambles=true]{standalone}
+% \usepackage{import}
+\begin{document}
+
+\section{Important Facts}
+	\subsection{Finite-Dimensional Vector Spaces}
+	We begin by defining \textbf{finite-dimensional} vector spaces, which are fundamental for matrix analysis. A vector space, V over a field, F, is a set of objects called vectors that have the following properties:
+
+	i) closed under binary addition
+	ii) associative: $x$
+	iii) commutative
+	iv) has the zero vector
+
+	A field is typically the real numbers, or complex numbers, and has the following properties:
+
+	\begin{enumerate}
+		\item Closure under addition: $\forall x, y \in F$, we have that $x+y \in F$
+		\item Closure under multiplication: $\forall x, y \in F$, we have that $xy \in F$
+	\end{enumerate}
+
+\section{Random Matrix Theory}
+	Random matrix theory is the study of matrices that arise with some probability distribution. This has interesting intersections with concentration inequality theory and obtaining bounds on eigenvalues for statistical estimates.
+
+	We say that the vector space of hermitian matrices is $H_n(K)$ with field $K \in \{\mathbb{R}, \mathbb{C}\}$. The general vector space of all $n \times n$ matrices is $M_n(K)$.
+
+\section{Resolvent Operator}
+	
+	In its most general form, we can start off by defining the Cauchy-Stieljes transform for all $z \in \mathbb{C}_+ = \{z \in \mathbb{C}: \eta(z) > 0 \}$:
+
+		$$g_\mu(z) = \int \frac{1}{\lambda - z}  d\mu(\lambda)$$
+
+	where $\mu$ is a finite measure on $\mathbb{R}$. 
+
+	% defining the resolvent
+	If we consider a matrix, $A \in H_n(\mathbb{C})$ and $\psi \in \mathbb{C}^n$ is a vectro with unit l2-norm. The spectral theorem guarantees the existence of $(v_1, ..., v_n)$ set of orthonormal basis vectors that are \textbf{eigenvectors} of A, such that:
+
+		$$Av_i = \lambda_i v_i$$
+
+	We say that the \textbf{spectral measure with vector $\psi$} is the real probability measure defined by:
+
+		$$\mu_A^\psi = \sum_{k=1}^n |\langle v_k,  \psi \rangle |^2 \delta_{\lambda_k}(A)$$
+
+	If $z \notin \sigma(A)$, then A - zI is invertible. We define the resolvent of A as the function: $R: \mathbb{C}_+ \mapsto M_n(\mathbb{C})$
+		
+		$$R(z) = (A - zI)^{-1}$$
+
+	We derive basic properties of the resolvent matrix:
+
+	\begin{lemma} [Basic Properties of the Resolvent Matrix]
+		Let $A \in H_n(\mathbb{C})$ and R(z) is the resolvent. For any $z \in \mathbb{C}_+$ and $1 \le i$, and $j \le n$, we have that:
+
+		\begin{enumerate}
+			\item Analytic: $z \mapsto R(z)_{ij}$ is an analytic function
+			\item Bounded: $||R(z)|| \le |z|^{-1}$
+			\item Normal
+		\end{enumerate}
+	\end{lemma}
+
+
+\end{document}
